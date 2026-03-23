@@ -1,20 +1,4 @@
-  import React from "react";
-  import ReactDOM from "react-dom/client";
-
-  // const newEle=React.createElement("div",{},[React.createElement("h1",{id:'heading',key:'1'},"hello"),React.createElement("h2",{key:'2'},"world")]);
-  const Header=()=>{
-return(<div className="header">
-<img className="logo" alt='logo' src='https://img.freepik.com/premium-vector/food-ordering-app-logo-with-points-fork-shapes-center_666184-195.jpg?semt=ais_hybrid&w=740&q=80'/>
-<ul className="navBar">
-  <li>Home</li>
-  <li>Contact Us</li>
-  <li>Help</li>
-  <li>Cart</li>
-
-</ul>
-</div>)
-  } 
-  const resObj=[
+export const  RES_OBJ=[
 {
 info: {
 id: "1003414",
@@ -736,35 +720,5 @@ type: "WEBLINK"
 widgetId: "collectionV5RestaurantListWidget_SimRestoRelevance_food_seo"
 }
 ]
-
-
-
-  const ResCard=({resData})=>{
-    const info=resData?.info;
-    return(<div className="resCard">
-   <img className="logo" alt='logo' src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${info?.cloudinaryImageId}`}/>
-    <h3>{info?.name}</h3>
-    <h4>{info?.avgRating} . {info?.deliveryTime} Min</h4>
-    <h4>{info?.cuisines?.join(",")}</h4>
-    <h4>{info?.locality}</h4>
-    </div>)
-  }
-  const AppBody=()=>{
-return(<div className="bodyContainer">
- {resObj?.map((item)=>{
-  return (<ResCard key={item?.info?.id} resData={item}/>)
- })}
-
-</div>)
-  }
-  const AppLayout=()=>{
-    return (<div>
-    <Header/>
-    <AppBody/>
-    </div>)
-   }
-   
-  
-  const root=ReactDOM.createRoot(document.getElementById('root'));
-    // root.render(JSXheading);
-    root.render(<AppLayout/>);
+export const CDN_IMAGE='https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/'
+export const LOGO='https://img.freepik.com/premium-vector/food-ordering-app-logo-with-points-fork-shapes-center_666184-195.jpg?semt=ais_hybrid&w=740&q=80'

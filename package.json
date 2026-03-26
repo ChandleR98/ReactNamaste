@@ -10,9 +10,13 @@
   "author": "Koushik Majumder",
   "license": "ISC",
   "devDependencies": {
-    "parcel": "^2.16.4"
+    "autoprefixer": "^10.4.27",
+    "parcel": "^2.16.4",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^3.4.1"
   },
   "dependencies": {
+    "@tailwindcss/postcss": "^4.2.2",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-router": "^7.13.2",

@@ -1,19 +1,22 @@
-  import React from "react";
+  import React, { lazy, Suspense } from "react";
   import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import AppBody from "./components/AppBody";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router";
 import Error from './components/Error';
-import About from './components/About';
+// import About from './components/About';
 import Contact from "./components/Contact";
-import ResCard from "./components/ResCard";
-import ResDeatils from "./components/ResDeatils";
 
+import ResDeatils from "./components/ResDeatils";
+const About=lazy(()=>import('./components/About'))
   // const newEle=React.createElement("div",{},[React.createElement("h1",{id:'heading',key:'1'},"hello"),React.createElement("h2",{key:'2'},"world")]);
   const AppLayout=()=>{
-    return (<div>
+    return (<div className="bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors duration-300">
     <Header/>
+    <div className="pt-1">
+
     <Outlet/>
+    </div>
     </div>)
    }
    const appRouter=createBrowserRouter([
@@ -22,7 +25,7 @@ import ResDeatils from "./components/ResDeatils";
       element:<AppLayout/>,
       children:[{
        path:'/about',
-      element:<About/>,
+      element:<Suspense fallback={<><h1>Loading about....</h1></>}><About/></Suspense>,
     },
     {
       path:'/restaurant/:id',

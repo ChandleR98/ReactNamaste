@@ -2,11 +2,14 @@ import { useParams } from "react-router";
 
 import Shimmer from "./Shimmer";
 import useResMenu from "../utils/useResMenu";
+import Accordion from "./Accordion";
+import { useState } from "react";
 
 const ResDeatils = () => {
   const { id } = useParams();
   const itemList = useResMenu(id);
-
+  const accordionCount=[1,2,3];
+  const [activeIndex, setActiveIndex] = useState(null)
   return (
     <>
       {/* 🔝 Header */}
@@ -24,7 +27,7 @@ const ResDeatils = () => {
         </h4>
       </div>
 
-      {itemList?.length > 0 ? (
+      {itemList?.length > 0 ? (<>
         <div className="resDeatils flex flex-wrap gap-6 p-6 justify-center">
           
           {itemList?.map((item) => {
@@ -64,7 +67,16 @@ const ResDeatils = () => {
               </div>
             );
           })}
+         
         </div>
+         {<div>
+            {accordionCount?.map((item,index)=>{
+              return (<Accordion  key={item} itemList={itemList} show={activeIndex==index} setShow={()=>{
+                index==activeIndex ? setActiveIndex(null) : setActiveIndex(index)
+              }}/>)
+            })}
+            </div>}
+        </>
       ) : (
         <Shimmer />
       )}

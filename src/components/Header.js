@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LOGO } from "../utils/MockData";
 import { Link } from "react-router";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Header = () => {
   const logo = new URL("../assets/logoFood.png", import.meta.url).href;
   const [btn, setBtn] = useState("Log in");
   const online = useOnlineStatus();
-
+  const user=useContext(UserContext);
   const [dark, setDark] = useState(() => {
     return localStorage.getItem("theme") === "dark";
   });
@@ -58,6 +59,9 @@ const Header = () => {
         <li className="hover:text-blue-500 transition cursor-pointer">
           🛒 Cart
         </li>
+         <li className="hover:text-blue-500 transition cursor-pointer">
+          UserName-{user?.userName}
+        </li>
       </ul>
 
       {/* Right Controls */}
@@ -79,7 +83,10 @@ const Header = () => {
                      hover:bg-blue-600 active:scale-95 
                      transition shadow-sm"
           onClick={() => {
-            btn === "Log in" ? setBtn("Log Out") : setBtn("Log in");
+            btn === "Log in" ? setBtn("Log Out")  : setBtn("Log in") ; 
+            btn === "Log in" ? user.setUserInfo("Koushik Majumder")  : user.setUserInfo("You're logged out") ; 
+
+          
           }}
         >
           {btn}

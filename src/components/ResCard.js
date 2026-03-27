@@ -2,7 +2,7 @@ import { CDN_IMAGE } from "../utils/MockData";
 
 const ResCard = ({ resData }) => {
   const info = resData;
-
+  
   return (
     <div className="w-72 bg-white dark:bg-gray-800 
                     rounded-2xl shadow-md dark:shadow-gray-900/40

@@ -1,6 +1,12 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { removeSpecificItem } from "../utils/cartSlice";
 
 const Accordion=({itemList,show,setShow})=>{
+  const dispatch=useDispatch()
+     const removeCart=(item)=>{
+      dispatch(removeSpecificItem(item.itemID))
+    }
     return (<div className="m-4" >
 
        <div
@@ -14,7 +20,7 @@ const Accordion=({itemList,show,setShow})=>{
              onClick={()=>{setShow()}}
 >
   <h3 className="text-md font-semibold text-gray-800 dark:text-gray-100">
-    Accordion
+    {itemList?.[0]?.restaurantName}
   </h3>
 
   <span className="text-gray-600 dark:text-gray-300 transition-transform duration-300">
@@ -50,8 +56,11 @@ const Accordion=({itemList,show,setShow})=>{
                   <h4 className="text-green-600 dark:text-green-400 font-bold mt-2">
                     ₹{item.itemPrice}
                   </h4>
-
+ <button className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition" onClick={()=>removeCart(item)}>
+  Remove From Cart
+</button>
                 </div>
+                
               </div>
             );
           })}</div>}

@@ -3,12 +3,15 @@ import { LOGO } from "../utils/MockData";
 import { Link } from "react-router";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/UserContext";
+import { useSelector } from "react-redux";
+
 
 const Header = () => {
   const logo = new URL("../assets/logoFood.png", import.meta.url).href;
   const [btn, setBtn] = useState("Log in");
   const online = useOnlineStatus();
   const user=useContext(UserContext);
+  const cartItems=useSelector((store)=>store.cart.items)
   const [dark, setDark] = useState(() => {
     return localStorage.getItem("theme") === "dark";
   });
@@ -57,7 +60,7 @@ const Header = () => {
         </li>
 
         <li className="hover:text-blue-500 transition cursor-pointer">
-          🛒 Cart
+          <Link to='/cart'>🛒 Cart ({cartItems?.length})</Link>
         </li>
          <li className="hover:text-blue-500 transition cursor-pointer">
           UserName-{user?.userName}

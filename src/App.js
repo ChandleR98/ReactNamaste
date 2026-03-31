@@ -9,6 +9,9 @@ import Contact from "./components/Contact";
 
 import ResDeatils from "./components/ResDeatils";
 import UserContext from "./utils/UserContext";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
+import Cart from "./components/Cart";
 const About=lazy(()=>import('./components/About'))
   // const newEle=React.createElement("div",{},[React.createElement("h1",{id:'heading',key:'1'},"hello"),React.createElement("h2",{key:'2'},"world")]);
   const AppLayout=()=>{
@@ -17,6 +20,7 @@ const About=lazy(()=>import('./components/About'))
     //   setUserInfo("koushik");
     // })
     return (<div className="bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors duration-300">
+      <Provider store={appStore}>
     <UserContext.Provider value={{userName:userInfo,setUserInfo}}>
     <Header/>
     <div className="pt-1">
@@ -25,6 +29,7 @@ const About=lazy(()=>import('./components/About'))
     
     </div>
     </UserContext.Provider>
+    </Provider>
     </div>)
    }
    const appRouter=createBrowserRouter([
@@ -40,6 +45,10 @@ const About=lazy(()=>import('./components/About'))
       element:<ResDeatils/>
     },
     {
+      path:'/cart',
+      element:<Cart/>
+    },
+    {
 path:'/',
 element:<AppBody/>
     },
@@ -50,7 +59,7 @@ element:<AppBody/>
   ],
       errorElement:<Error/>
     },
-
+    
    ])
   
   const root=ReactDOM.createRoot(document.getElementById('root'));

@@ -4,12 +4,22 @@ import Shimmer from "./Shimmer";
 import useResMenu from "../utils/useResMenu";
 import Accordion from "./Accordion";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addItem, removeSpecificItem } from "../utils/cartSlice";
 
 const ResDeatils = () => {
   const { id } = useParams();
   const itemList = useResMenu(id);
   const accordionCount=[1,2,3];
   const [activeIndex, setActiveIndex] = useState(null)
+  const cartItems=useSelector((store)=>store.cart.items)
+  const dispatch=useDispatch();
+  const addtoCart=(item)=>{
+    dispatch(addItem(item))
+  }
+   const removeCart=(item)=>{
+    dispatch(removeSpecificItem(item.itemID))
+  }
   return (
     <>
       {/* 🔝 Header */}
@@ -62,20 +72,24 @@ const ResDeatils = () => {
                   <h4 className="text-green-600 dark:text-green-400 font-bold mt-2">
                     ₹{item.itemPrice}
                   </h4>
-
+                 {cartItems?.filter((cart)=>cart.itemID==item.itemID)?.length==0 ?  <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition" onClick={()=>addtoCart(item)}>
+  Add to Cart+
+</button> : <button className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition" onClick={()=>removeCart(item)}>
+  Remove From Cart
+</button>}
                 </div>
               </div>
             );
           })}
          
         </div>
-         {<div>
+         {/* {<div>
             {accordionCount?.map((item,index)=>{
               return (<Accordion  key={item} itemList={itemList} show={activeIndex==index} setShow={()=>{
                 index==activeIndex ? setActiveIndex(null) : setActiveIndex(index)
               }}/>)
             })}
-            </div>}
+            </div>} */}
         </>
       ) : (
         <Shimmer />

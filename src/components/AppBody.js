@@ -35,7 +35,7 @@ const AppBody = () => {
   };
 
   const online = useOnlineStatus();
-
+  const [openFlag,setOpenFlag]=useState(false);
   if (!online) {
     return (
       <h1 className="text-center text-xl font-semibold text-red-500 mt-10">
@@ -77,17 +77,18 @@ const AppBody = () => {
         </button>
 
         <button
-          className="bg-green-500 text-white px-4 py-2 rounded-lg 
-                     hover:bg-green-600 active:scale-95 
-                     transition duration-200"
+          className={`bg-${!openFlag ? 'green' : 'red'}-500 text-white px-4 py-2 rounded-lg 
+                     hover:bg-${!openFlag ? 'green' : 'red'}-600 active:scale-95 
+                     transition duration-200`}
           onClick={() => {
+            setOpenFlag(!openFlag)
             const filteredList = masterList?.filter(
-              (item) => item?.info?.avgRating > 4.3
+              (item) => item?.parkingLot
             );
-            setResList(filteredList);
+          {!openFlag ?   setResList(filteredList) : setResList(masterList)}
           }}
         >
-          ⭐ Top Rated
+          ⭐ {!openFlag ?  'Open Now' : 'See All'}
         </button>
       </div>
 
@@ -100,7 +101,7 @@ const AppBody = () => {
               to={`/restaurant/${item?.restaurantID}`}
               className="hover:scale-[1.02] transition duration-200"
             >
-                {item?.parkingLot ? <PromotedCard resData={item}/> :
+                {item?.restaurantID>25 ? <PromotedCard resData={item}/> :
               <ResCard resData={item} />}
             </Link>
           ))}
